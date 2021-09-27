@@ -2,13 +2,16 @@ import Item from "../item/Item";
 import { useState, useEffect } from "react";
 import API from '../../utils/api';
 import { sorting } from '../../utils/sorting'
-import { filterContent} from '../../utils/filter';
+import { filterContent } from '../../utils/filter';
+import Pagination from "../pagination/Pagination";
 
 const Table = () => {
     const [input, setInput] = useState('')
     const [sortType, setSortType] = useState('title')
     const [filterType, setFilterType] = useState('title');
-    const [filterParam,setFilterParam] = useState('');
+    const [filterParam, setFilterParam] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [contentPerPage, setContentPerPage] = useState(5);
     let [contents, setContents] = useState(null)
     const [filtered, setFiltered] = useState(contents);
     useEffect(() => {
@@ -30,12 +33,18 @@ const Table = () => {
         setInput(value);
         setFiltered(filterContent(contents, filterType, filterParam, value))
     }
+    function paginate(pageNumber) {
+        setCurrentPage(pageNumber);
+    }
     if (contents === null) return (
         <main>
             LOADING...
         </main>
     )
-    else
+    else {
+        let lastContentIndex = currentPage * contentPerPage;
+        let firstContentIndex = lastContentIndex - contentPerPage;
+        let currentContent = contents.slice(firstContentIndex, lastContentIndex);
         return (
             <main className='main'>
                 <div className='filter'>
@@ -59,10 +68,12 @@ const Table = () => {
                     <li className='names__item' onClick={() => sortItems('distance')}>Дистанция</li>
                 </ul>
                 <div className='content'>
-                    {input=== ''?contents.map((el, index) => <Item id={index} title={el.title} date={el.date} count={el.count} distance={el.distance} />)
-                        : filtered.map((el, index) => <Item id={index} title={el.title} date={el.date} count={el.count} distance={el.distance} />)}
+                    {input === '' ? currentContent.map((el, index) => <Item key={index} title={el.title} date={el.date} count={el.count} distance={el.distance} />)
+                        : filtered.slice(firstContentIndex, lastContentIndex).map((el, index) => <Item key={index} title={el.title} date={el.date} count={el.count} distance={el.distance} />)}
                 </div>
+                <Pagination contentPerPage={contentPerPage} totalContent={input === '' ? contents.length : filtered.length} paginate={paginate} />
             </main>
         )
+    }
 }
 export default Table;

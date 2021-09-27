@@ -6,7 +6,8 @@
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
 }
-select,input {
+select,
+input {
     font-size: 14px;
     border-radius: 4px;
     border: 1px solid rgb(41, 201, 230);
@@ -36,4 +37,16 @@ input {
 }
 .content {
     font-size: 16px;
+}
+.pagination {
+    display: flex;
+    li {
+        list-style-type: none;
+        margin-left: 5px;
+        button {
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid rgb(41, 201, 230);
+        }
+    }
 }

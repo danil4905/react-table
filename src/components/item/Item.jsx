@@ -1,6 +1,6 @@
 import classes from './item.module.scss';
 
-const Item = ({title,date,count,distance}) => {
+const Item = ({ title, date, count, distance }) => {
     return (
         <div className={classes.wrapper}>
             <span className={classes.value}>{title}</span>
