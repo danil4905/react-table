@@ -1,9 +1,27 @@
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+select,input {
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid rgb(41, 201, 230);
+    width: 100px;
+}
+input {
+    width: 150px;
+}
 .names {
     display: flex;
     height: 40px;
     align-items: center;
     padding-inline-start: 0;
     font-weight: bold;
+    font-size: 20px;
 }
 .names__item {
     width: 150px;
@@ -15,4 +33,7 @@
     display: flex;
     width: 400px;
     justify-content: space-around;
+}
+.content {
+    font-size: 16px;
 }
